@@ -1,14 +1,6 @@
 # Credentials Manager
 
-Work-in-progress credentials management app with a React/TanStack frontend and an Express + Drizzle + PostgreSQL backend.
-
-## Structure
-
-```text
-.
-├── client/   # Frontend
-└── server/   # Backend
-```
+Web app to manage server credentials (WordPress, databases, FTP, etc.) built with PERN stack + TypeScript.
 
 ## Current Stack
 
@@ -21,19 +13,10 @@ Work-in-progress credentials management app with a React/TanStack frontend and a
   - Tailwind CSS 4
 
 - `server`
-  - Node.js + TypeScript
+  - Node.js
   - Express 5
   - Drizzle ORM
   - PostgreSQL
-
-## Project Status
-
-The project already has a working base for further development:
-
-- the `client` builds successfully
-- the `server` compiles successfully with TypeScript
-- Drizzle is configured with an initial PostgreSQL schema
-- the backend starts with Express, `helmet`, `cors`, and `express.json()`
 
 ## Requirements
 
@@ -43,7 +26,7 @@ The project already has a working base for further development:
 
 ## Environment Variables
 
-The backend currently expects at least:
+The backend requires the following environment variables:
 
 - `DATABASE_URL`
 - `JWT_SECRET`
