@@ -1,6 +1,9 @@
 import cors from 'cors'
+import dotenv from 'dotenv'
 import express from 'express'
 import helmet from 'helmet'
+
+dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 8080
