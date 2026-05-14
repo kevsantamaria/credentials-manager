@@ -1,13 +1,15 @@
 {
+  "include": ["src/**/*.ts", "eslint.config.ts", "drizzle.config.ts"],
+
   "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "paths": {
+      "@/*": ["./src/*"],
+    },
     "rootDir": "./",
     "outDir": "./dist",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
 
-    "module": "NodeNext",
-    "target": "ESNext",
     "types": ["node"],
 
     "allowSyntheticDefaultImports": true,
@@ -27,8 +29,6 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
-
-  "include": ["src/**/*", "drizzle.config.ts"]
 }
