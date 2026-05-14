@@ -17,6 +17,16 @@ export const users = pgTable('users', {
   updatedAt: timestamp().defaultNow(),
 })
 
+export const refreshTokens = pgTable('refresh_tokens', {
+  id: serial().primaryKey(),
+  token: text().notNull(),
+  userId: uuid()
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  expiresAt: timestamp().notNull(),
+  createdAt: timestamp().defaultNow(),
+})
+
 export const sites = pgTable('sites', {
   id: serial().primaryKey(),
   name: varchar({ length: 100 }).notNull(),
