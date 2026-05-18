@@ -15,7 +15,7 @@
     "drizzle-studio": "exec drizzle-kit studio"
   },
   "keywords": [],
-  "author": "",
+  "author": "Kevin Santamaria",
   "license": "ISC",
   "devEngines": {
     "packageManager": {
