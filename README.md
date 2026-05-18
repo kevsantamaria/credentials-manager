@@ -4,6 +4,8 @@ Web app to manage server credentials (WordPress, databases, FTP, etc.) built wit
 
 ## Current Stack
 
+The project is structured into two main applications: `client` and `server`.
+
 - `client`
   - React 19
   - Vite 8
@@ -96,3 +98,19 @@ Backend:
 cd server
 pnpm build
 ```
+
+## Database Seeding
+
+To populate the database with the initial administrator account, run the seed script from the server directory:
+
+```bash
+cd server
+pnpm seed
+```
+
+This script creates a default admin user with the following credentials:
+
+Username: admin
+Password: qwerty123
+
+> **Note**: Make sure your database is running and migrations are applied before running the seed command.
