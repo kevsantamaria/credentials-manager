@@ -1,3 +1,6 @@
+import { errorHandler } from '@/middlewares/error.middleware.js'
+import auth from '@/routes/auth.routes.js'
+import refresh from '@/routes/refresh.routes.js'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
@@ -19,6 +22,11 @@ app.use(
     credentials: true,
   })
 )
+
+app.use(auth)
+app.use(refresh)
+
+app.use(errorHandler)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
