@@ -1,5 +1,6 @@
 import { db } from '@/db/db.js'
 import { refreshTokens, users } from '@/db/schema.js'
+import { createError } from '@/utils/createError.js'
 import bcrypt from 'bcryptjs'
 import { eq } from 'drizzle-orm'
 import type { Request, Response } from 'express'
@@ -9,15 +10,13 @@ export const auth = async (req: Request, res: Response) => {
   const { username, password } = req.body
 
   const [valid] = await db
-    .select()
+    .select({ id: users.id, password: users.password })
     .from(users)
     .where(eq(users.username, username))
-  if (!valid)
-    return res.status(401).json({ message: 'Invalid username or password' })
+  if (!valid) throw createError('UNAUTHORIZED', 'Invalid username or password')
 
   const match = await bcrypt.compare(password, valid.password)
-  if (!match)
-    return res.status(401).json({ message: 'Invalid username or password' })
+  if (!match) throw createError('UNAUTHORIZED', 'Invalid username or password')
 
   const expiresIn = process.env.JWT_EXPIRES_IN!
   const secret = new TextEncoder().encode(process.env.JWT_SECRET)

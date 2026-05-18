@@ -1,21 +1,21 @@
+import { createError } from '@/utils/createError.js'
 import type { NextFunction, Request, Response } from 'express'
 import { jwtVerify } from 'jose'
 import { TextEncoder } from 'util'
 
 export const authenticateToken = async (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction
 ) => {
   const authHeader = req.headers['authorization']
 
   if (!authHeader || !authHeader.startsWith('Bearer '))
-    return res.status(401).json({ message: 'Invalid authorization header' })
+    throw createError('UNAUTHORIZED', 'Invalid authorization header')
 
   const token = authHeader.split(' ')[1]
 
-  if (!token)
-    return res.status(401).json({ message: 'No authorization header' })
+  if (!token) throw createError('UNAUTHORIZED', 'No authorization header')
 
   try {
     const secret = new TextEncoder().encode(process.env.JWT_SECRET)
@@ -23,6 +23,6 @@ export const authenticateToken = async (
     req.user = payload
     next()
   } catch (error) {
-    return res.status(403).json({ message: 'Invalid or expired token' })
+    throw createError('UNAUTHORIZED', 'Invalid or expired token')
   }
 }
