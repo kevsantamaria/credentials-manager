@@ -26,7 +26,7 @@ export const refresh = async (req: Request, res: Response) => {
   const expiresIn = process.env.JWT_EXPIRES_IN!
   const newAccessToken = await new SignJWT({ sub: token.userId })
     .setProtectedHeader({ alg: 'HS256' })
-    .setIssuedAt(new Date())
+    .setIssuedAt()
     .setExpirationTime(expiresIn)
     .sign(secret)
 

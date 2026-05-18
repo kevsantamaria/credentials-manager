@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs'
 import { eq } from 'drizzle-orm'
 import type { Request, Response } from 'express'
 import { SignJWT } from 'jose'
+import ms, { type StringValue } from 'ms'
 
 export const auth = async (req: Request, res: Response) => {
   const { username, password } = req.body
@@ -22,20 +23,21 @@ export const auth = async (req: Request, res: Response) => {
   const secret = new TextEncoder().encode(process.env.JWT_SECRET)
   const token = await new SignJWT({ sub: valid.id })
     .setProtectedHeader({ alg: 'HS256' })
-    .setIssuedAt(new Date())
+    .setIssuedAt()
     .setExpirationTime(expiresIn)
     .sign(secret)
 
-  const refreshTokenTime = process.env.REFRESH_TOKEN_TIME!
+  const refreshTokenTime = process.env.REFRESH_TOKEN_TIME! as StringValue
+  const refreshTokenMs = ms(refreshTokenTime)
   const refreshToken = await new SignJWT({ sub: valid.id })
     .setProtectedHeader({ alg: 'HS256' })
-    .setIssuedAt(new Date())
+    .setIssuedAt()
     .setExpirationTime(refreshTokenTime)
     .sign(secret)
 
   await db.insert(refreshTokens).values({
     token: refreshToken,
-    expiresAt: new Date(Date.now() + parseInt(refreshTokenTime)),
+    expiresAt: new Date(Date.now() + refreshTokenMs),
     userId: valid.id,
   })
 
