@@ -1,5 +1,6 @@
 import { db } from '@/db/db.js'
 import { refreshTokens, users } from '@/db/schema.js'
+import type { AuthReq } from '@/types/auth.types.js'
 import { createError } from '@/utils/createError.js'
 import bcrypt from 'bcryptjs'
 import { eq } from 'drizzle-orm'
@@ -8,7 +9,7 @@ import { SignJWT } from 'jose'
 import ms, { type StringValue } from 'ms'
 
 export const auth = async (req: Request, res: Response) => {
-  const { username, password } = req.body
+  const { username, password }: AuthReq = req.body
 
   const [valid] = await db
     .select({ id: users.id, password: users.password })

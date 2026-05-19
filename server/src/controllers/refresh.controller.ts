@@ -1,12 +1,13 @@
 import { db } from '@/db/db.js'
 import { refreshTokens } from '@/db/schema.js'
+import type { RefreshReq } from '@/types/auth.types.js'
 import { createError } from '@/utils/createError.js'
 import { eq } from 'drizzle-orm'
 import type { Request, Response } from 'express'
 import { jwtVerify, SignJWT } from 'jose'
 
 export const refresh = async (req: Request, res: Response) => {
-  const { refresh } = req.body
+  const { refresh }: RefreshReq = req.body
 
   const secret = new TextEncoder().encode(process.env.JWT_SECRET)
 
