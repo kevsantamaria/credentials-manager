@@ -1,6 +1,7 @@
 import { errorHandler } from '@/middlewares/error.middleware.js'
 import auth from '@/routes/auth.routes.js'
 import refresh from '@/routes/refresh.routes.js'
+import technologies from '@/routes/technologies.routes.js'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
@@ -25,6 +26,7 @@ app.use(
 
 app.use(auth)
 app.use(refresh)
+app.use(technologies)
 
 app.use(errorHandler)
 
