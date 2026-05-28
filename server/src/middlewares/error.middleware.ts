@@ -1,9 +1,10 @@
+import type { ApiErrorResponse } from '@/types/api.types.js'
 import type { NextFunction, Request, Response } from 'express'
 
 export const errorHandler = (
   err: Error,
   _req: Request,
-  res: Response,
+  res: Response<ApiErrorResponse>,
   _next: NextFunction
 ) => {
   switch (err.name) {
